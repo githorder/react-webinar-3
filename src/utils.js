@@ -26,3 +26,7 @@ export function createElement(name, props = {}, ...children) {
 
   return element;
 }
+
+export function formatTxt(num, variants, cases = [2, 0, 1, 1, 1, 2]) {
+  return variants[(num % 100 > 4 && num % 100 < 20) ? 2 : cases[(num % 10 < 5) ? num % 10 : 5]];
+}
