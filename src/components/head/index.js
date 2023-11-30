@@ -1,13 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import "./style.css";
 
-function Head({title}) {
+function Head({ title, isCartOpen, onClose }) {
   return (
-    <div className='Head'>
+    <div className="Head">
       <h1>{title}</h1>
+      {isCartOpen && <button onClick={onClose}>Закрыть</button>}
     </div>
-  )
+  );
 }
 
 Head.propTypes = {
