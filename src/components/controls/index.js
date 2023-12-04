@@ -20,7 +20,13 @@ function Controls({ onOpenCartModal, cart }) {
               few: "товара",
               many: "товаров",
             })}{" "}
-            / {cart.reduce((sum, { count, price }) => sum + count * price, 0)} ₽
+            /{" "}
+            {new Intl.NumberFormat("ru-RU", {
+              style: "currency",
+              currency: "RUB",
+            }).format(
+              cart.reduce((sum, { count, price }) => sum + count * price, 0)
+            )}
           </span>
         )}
       </span>
