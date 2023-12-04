@@ -52,3 +52,19 @@ export function generateCode2() {
     ? ++generateCode2.value
     : (generateCode2.value = 1);
 }
+
+export function sum(arr) {
+  return arr.reduce((sum, item) => sum + item.count * item.price, 0);
+}
+
+export function formatNumber(
+  num,
+  locale = "ru-RU",
+  style = "currency",
+  currency = "RUB"
+) {
+  return new Intl.NumberFormat(locale, {
+    style,
+    currency,
+  }).format(num);
+}

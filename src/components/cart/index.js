@@ -6,6 +6,8 @@ import List from "../list";
 
 import "./style.css";
 
+import { formatNumber, sum } from "../../utils";
+
 function Cart({ cart, onDelete, onClose, isCartOpen }) {
   return (
     <div className="Overlay">
@@ -13,15 +15,7 @@ function Cart({ cart, onDelete, onClose, isCartOpen }) {
         <Head onClose={onClose} isCartOpen={true} title="Корзина" />
         <List isCartOpen={isCartOpen} list={cart} onDelete={onDelete} />
         <div className="Cart_summary">
-          <span>Итого</span>{" "}
-          <span>
-            {new Intl.NumberFormat("ru-RU", {
-              style: "currency",
-              currency: "RUB",
-            }).format(
-              cart.reduce((sum, { count, price }) => sum + count * price, 0)
-            )}
-          </span>
+          <span>Итого</span> <span>{formatNumber(sum(cart))}</span>
         </div>
       </div>
     </div>

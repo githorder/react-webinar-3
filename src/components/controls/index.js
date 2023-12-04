@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { plural } from "../../utils";
+import { formatNumber, plural, sum } from "../../utils";
 
 import "./style.css";
 
@@ -20,13 +20,7 @@ function Controls({ onOpenCartModal, cart }) {
               few: "товара",
               many: "товаров",
             })}{" "}
-            /{" "}
-            {new Intl.NumberFormat("ru-RU", {
-              style: "currency",
-              currency: "RUB",
-            }).format(
-              cart.reduce((sum, { count, price }) => sum + count * price, 0)
-            )}
+            / {formatNumber(sum(cart))}
           </span>
         )}
       </span>
