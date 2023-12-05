@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 
+import { formatNumber } from "../../utils";
+
 function ItemCart(props) {
   const callbacks = {
     onDelete: (e) => {
@@ -15,7 +17,7 @@ function ItemCart(props) {
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-title">{props.item.title}</div>
       <div className="Item-details">
-        <div>{props.item.price} ₽</div>
+        <div>{formatNumber(props.item.price)} ₽</div>
         <div>{props.item.count} шт</div>
       </div>
       <div className="Item-actions">

@@ -57,14 +57,6 @@ export function sum(arr) {
   return arr.reduce((sum, item) => sum + item.count * item.price, 0);
 }
 
-export function formatNumber(
-  num,
-  locale = "ru-RU",
-  style = "currency",
-  currency = "RUB"
-) {
-  return new Intl.NumberFormat(locale, {
-    style,
-    currency,
-  }).format(num);
+export function formatNumber(num, locale = "ru-RU") {
+  return new Intl.NumberFormat(locale).format(num);
 }

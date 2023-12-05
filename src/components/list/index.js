@@ -1,20 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Item from "../item";
+
 import "./style.css";
 
-import ItemCart from "../ItemCart";
-
-function List({ list, onAdd, onDelete, isCartOpen }) {
+function List({ items, RenderItem, ...props }) {
   return (
     <div className="List">
-      {list.map((item) => (
+      {items.map((item) => (
         <div key={item.code} className="List-item">
-          {!isCartOpen ? (
-            <Item item={item} onAdd={onAdd} />
-          ) : (
-            <ItemCart onDelete={onDelete} item={item} />
-          )}
+          {<RenderItem item={item} {...props} />}
         </div>
       ))}
     </div>
@@ -22,20 +16,18 @@ function List({ list, onAdd, onDelete, isCartOpen }) {
 }
 
 List.propTypes = {
-  list: PropTypes.arrayOf(
+  items: PropTypes.arrayOf(
     PropTypes.shape({
       code: PropTypes.number,
     })
   ).isRequired,
   onAdd: PropTypes.func,
   onDeleteItem: PropTypes.func,
-  isCartOpen: PropTypes.bool,
 };
 
 List.defaultProps = {
   onDeleteItem: () => {},
   onAdd: () => {},
-  isCartOpen: false,
 };
 
 export default React.memo(List);

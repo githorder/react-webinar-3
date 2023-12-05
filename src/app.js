@@ -3,7 +3,9 @@ import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from "./components/modal";
 import Cart from "./components/cart";
+import Item from "./components/item";
 
 /**
  * Приложение
@@ -13,6 +15,7 @@ import Cart from "./components/cart";
 function App({ store }) {
   const list = store.getState().list;
   const cart = store.getState().cart;
+  const cartTotalSum = store.getState().cartTotalSum;
   const isCartOpen = store.getState().isCartOpen;
 
   const callbacks = {
@@ -30,11 +33,7 @@ function App({ store }) {
       [store]
     ),
 
-    onCloseCartModal: useCallback(() => {
-      store.toggleCartModal();
-    }, [store]),
-
-    onOpenCartModal: useCallback(() => {
+    onToogleCartModal: useCallback(() => {
       store.toggleCartModal();
     }, [store]),
   };
@@ -42,16 +41,25 @@ function App({ store }) {
   return (
     <PageLayout>
       {isCartOpen && (
-        <Cart
-          isCartOpen={isCartOpen}
-          onClose={callbacks.onCloseCartModal}
-          cart={cart}
-          onDelete={callbacks.onDeleteItem}
-        />
+        <Modal
+          onClose={callbacks.onToogleCartModal}
+          isCartOpen={true}
+          title="Корзина"
+        >
+          <Cart
+            cart={cart}
+            onDelete={callbacks.onDeleteItem}
+            cartTotalSum={cartTotalSum}
+          />
+        </Modal>
       )}
       <Head title="Магазин" />
-      <Controls onOpenCartModal={callbacks.onOpenCartModal} cart={cart} />
-      <List list={list} onAdd={callbacks.onAddItem} />
+      <Controls
+        onOpenCartModal={callbacks.onToogleCartModal}
+        cart={cart}
+        cartTotalSum={cartTotalSum}
+      />
+      <List items={list} RenderItem={Item} onAdd={callbacks.onAddItem} />
     </PageLayout>
   );
 }

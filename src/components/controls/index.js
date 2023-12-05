@@ -1,17 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { formatNumber, plural, sum } from "../../utils";
+import { formatNumber, plural } from "../../utils";
 
 import "./style.css";
 
-function Controls({ onOpenCartModal, cart }) {
+function Controls({ onOpenCartModal, cart, cartTotalSum }) {
   return (
     <div className="Controls">
       <span>
         В корзине:{" "}
         {cart.length === 0 ? (
-          <span>Пусто</span>
+          <span>пусто</span>
         ) : (
           <span>
             {cart.length}{" "}
@@ -20,7 +20,7 @@ function Controls({ onOpenCartModal, cart }) {
               few: "товара",
               many: "товаров",
             })}{" "}
-            / {formatNumber(sum(cart))}
+            / {formatNumber(cartTotalSum)} ₽
           </span>
         )}
       </span>
@@ -31,6 +31,7 @@ function Controls({ onOpenCartModal, cart }) {
 
 Controls.propTypes = {
   onOpenCartModal: PropTypes.func,
+  cartTotalSum: PropTypes.number.isRequired,
 };
 
 Controls.defaultProps = {

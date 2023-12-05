@@ -54,6 +54,7 @@ class Store {
     if (!itemInCart) {
       this.setState({
         ...this.state,
+        cartTotalSum: this.state.cartTotalSum + itemInList.price,
         cart: [...this.state.cart, { ...itemInList, count: 1 }],
       });
       return;
@@ -61,6 +62,7 @@ class Store {
 
     this.setState({
       ...this.state,
+      cartTotalSum: this.state.cartTotalSum + itemInCart.price,
       cart: this.state.cart.map((item) => {
         if (item.code === code) {
           return { ...item, count: item.count + 1 };
@@ -79,8 +81,12 @@ class Store {
    * @param code
    */
   deleteItem(code) {
+    const itemInCart = this.state.cart.find((item) => item.code === code);
+
     this.setState({
       ...this.state,
+      cartTotalSum:
+        this.state.cartTotalSum - itemInCart.price * itemInCart.count,
       cart: this.state.cart.filter((item) => item.code !== code),
     });
   }

@@ -1,22 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import Head from "../head";
 import List from "../list";
+import ItemCart from "../item-cart";
 
 import "./style.css";
 
-import { formatNumber, sum } from "../../utils";
+import { formatNumber } from "../../utils";
 
-function Cart({ cart, onDelete, onClose, isCartOpen }) {
+function Cart({ cart, onDelete, cartTotalSum }) {
   return (
-    <div className="Overlay">
-      <div className="Cart">
-        <Head onClose={onClose} isCartOpen={true} title="Корзина" />
-        <List isCartOpen={isCartOpen} list={cart} onDelete={onDelete} />
-        <div className="Cart_summary">
-          <span>Итого</span> <span>{formatNumber(sum(cart))}</span>
-        </div>
+    <div className="Cart">
+      <List items={cart} RenderItem={ItemCart} onDelete={onDelete} />
+      <div className="Cart_summary">
+        <span>Итого</span> <span>{formatNumber(cartTotalSum)} ₽</span>
       </div>
     </div>
   );
@@ -31,14 +28,12 @@ Cart.propTypes = {
       count: PropTypes.number,
     })
   ).isRequired,
+  cartTotalSum: PropTypes.number.isRequired,
   onDelete: PropTypes.func,
-  onClose: PropTypes.func,
 };
 
 Cart.defaultProps = {
-  cart: [],
   onDelete: () => {},
-  onClose: () => {},
 };
 
 export default React.memo(Cart);

@@ -12,7 +12,14 @@ function Head({ title, isCartOpen, onClose }) {
 }
 
 Head.propTypes = {
-  title: PropTypes.node,
+  title: PropTypes.string.isRequired,
+  onClose: PropTypes.func,
+  isCartOpen: PropTypes.bool,
+};
+
+Head.defaultProps = {
+  onClose: () => {},
+  isCartOpen: false,
 };
 
 export default React.memo(Head);
