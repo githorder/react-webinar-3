@@ -2,9 +2,11 @@
   transition: all 0.2s ease-in;
   cursor: pointer;
   padding: 3px 8px;
+  user-select: none;
 }
 
-.PaginationItem-active {
+.PaginationItem.PaginationItem-active,
+.PaginationItem.PaginationItem-active:hover {
   background-color: #0087e9;
   color: #fff;
 }

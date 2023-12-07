@@ -10,6 +10,10 @@ class Pagination extends StoreModule {
       currentPage: 1,
     };
   }
+
+  change(page) {
+    this.setState({ currentPage: page }, "Страница изменена");
+  }
 }
 
 export default Pagination;

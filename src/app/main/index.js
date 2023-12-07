@@ -15,7 +15,7 @@ function Main() {
   let limit = 10;
 
   useEffect(() => {
-    store.actions.catalog.load();
+    store.actions.catalog.load(limit, 0);
   }, []);
 
   const select = useSelector((state) => ({
