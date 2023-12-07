@@ -8,11 +8,15 @@ class Pagination extends StoreModule {
   initState() {
     return {
       currentPage: 1,
+      limit: 10,
     };
   }
 
   change(page) {
-    this.setState({ currentPage: page }, "Страница изменена");
+    this.setState(
+      { ...this.getState(), currentPage: page },
+      "Страница изменена"
+    );
   }
 }
 

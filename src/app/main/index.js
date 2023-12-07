@@ -1,4 +1,5 @@
 import { memo, useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
@@ -6,24 +7,29 @@ import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
+import NavLayout from "../../components/nav-layout";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
 function Main() {
   const store = useStore();
-  let limit = 10;
-
-  useEffect(() => {
-    store.actions.catalog.load(limit, 0);
-  }, []);
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
     totalItems: state.catalog.totalItems,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    limit: state.pagination.limit,
+    currentPage: state.pagination.currentPage,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load(
+      select.limit,
+      (select.currentPage - 1) * select.limit
+    );
+  }, []);
 
   const callbacks = {
     // Добавление в корзину
@@ -50,13 +56,16 @@ function Main() {
   return (
     <PageLayout>
       <Head title="Магазин" />
-      <BasketTool
-        onOpen={callbacks.openModalBasket}
-        amount={select.amount}
-        sum={select.sum}
-      />
+      <NavLayout>
+        <Link to="/">Главная</Link>
+        <BasketTool
+          onOpen={callbacks.openModalBasket}
+          amount={select.amount}
+          sum={select.sum}
+        />
+      </NavLayout>
       <List list={select.list} renderItem={renders.item} />
-      <Pagination totalItems={select.totalItems} itemsPerPage={limit} />
+      <Pagination totalItems={select.totalItems} itemsPerPage={select.limit} />
     </PageLayout>
   );
 }

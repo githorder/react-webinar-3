@@ -12,19 +12,20 @@ import PaginationItem from "../pagination-item";
 function Pagination({ totalItems, itemsPerPage }) {
   const store = useStore();
 
+  const select = useSelector((state) => ({
+    currentPage: state.pagination.currentPage,
+    limit: state.pagination.limit,
+  }));
+
   const callbacks = {
     changePage: useCallback(
       (page) => {
         store.actions.pagination.change(page);
-        store.actions.catalog.load(10, (page - 1) * 10);
+        store.actions.catalog.load(select.limit, (page - 1) * select.limit);
       },
       [store]
     ),
   };
-
-  const select = useSelector((state) => ({
-    currentPage: state.pagination.currentPage,
-  }));
 
   const cn = bem("Pagination");
   const totalPages = Math.ceil(totalItems / itemsPerPage);
