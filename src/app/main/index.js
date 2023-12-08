@@ -6,7 +6,7 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
-import Pagination from "../../components/pagination";
+import Pagination from "../pagination";
 import NavLayout from "../../components/nav-layout";
 
 import useStore from "../../store/use-store";
@@ -65,7 +65,7 @@ function Main() {
         />
       </NavLayout>
       <List list={select.list} renderItem={renders.item} />
-      <Pagination totalItems={select.totalItems} itemsPerPage={select.limit} />
+      <Pagination />
     </PageLayout>
   );
 }

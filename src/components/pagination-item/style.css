@@ -1,5 +1,4 @@
 .PaginationItem {
-  transition: all 0.2s ease-in;
   cursor: pointer;
   padding: 3px 8px;
   user-select: none;
