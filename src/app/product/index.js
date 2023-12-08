@@ -5,6 +5,7 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import NavLayout from "../../components/nav-layout";
 import BasketTool from "../../components/basket-tool";
+import ProductDetails from "../../components/product-details";
 
 import Basket from "../basket";
 
@@ -52,28 +53,11 @@ function Product() {
             sum={select.sum}
           />
         </NavLayout>
-        <div style={{ padding: "20px" }}>
-          <p>{select.product.description}</p>
-          <p>
-            Страна производитель:{" "}
-            <strong>
-              {select.product.madeIn.title} ({select.product.madeIn.code})
-            </strong>
-          </p>
-          <p>
-            Категория: <strong>{select.product.category.title}</strong>
-          </p>
-          <p>
-            Год выпуска:{" "}
-            <strong>{new Date(select.product.dateCreate).getFullYear()}</strong>
-          </p>
-          <p style={{ fontSize: "24px" }}>
-            <strong>Цена: {select.product.price} ₽</strong>
-          </p>
-          <button onClick={() => callbacks.addToBasket(params.id)}>
-            Добавить
-          </button>
-        </div>
+        <ProductDetails
+          product={select.product}
+          productID={params.id}
+          addToBasket={callbacks.addToBasket}
+        />
       </PageLayout>
       {select.activeModal === "basket" && <Basket />}
     </>
