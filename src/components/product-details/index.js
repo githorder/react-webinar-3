@@ -11,7 +11,8 @@ function ProductDetails({ product, addToBasket, productID }) {
       <p>
         Страна производитель:{" "}
         <strong>
-          {product.madeIn.title} ({product.madeIn.code})
+          {product.madeIn.title &&
+            `${product.madeIn.title} (${product.madeIn.code})`}
         </strong>
       </p>
       <p>
@@ -19,10 +20,12 @@ function ProductDetails({ product, addToBasket, productID }) {
       </p>
       <p>
         Год выпуска:{" "}
-        <strong>{new Date(product.dateCreate).getFullYear()}</strong>
+        <strong>
+          {new Date(product.dateCreate).getFullYear() || product.dateCreate}
+        </strong>
       </p>
       <p className="ProductDetails_price">
-        <strong>Цена: {product.price} ₽</strong>
+        <strong>Цена: {product.price && `${product.price} ₽`}</strong>
       </p>
       <button onClick={handleClick}>Добавить</button>
     </div>
