@@ -20,6 +20,7 @@ function Main() {
     totalItems: state.catalog.totalItems,
     amount: state.basket.amount,
     sum: state.basket.sum,
+    activeModal: state.modals.name,
     limit: state.pagination.limit,
     currentPage: state.pagination.currentPage,
   }));
@@ -54,19 +55,22 @@ function Main() {
   };
 
   return (
-    <PageLayout>
-      <Head title="Магазин" />
-      <NavLayout>
-        <Link to="/">Главная</Link>
-        <BasketTool
-          onOpen={callbacks.openModalBasket}
-          amount={select.amount}
-          sum={select.sum}
-        />
-      </NavLayout>
-      <List list={select.list} renderItem={renders.item} />
-      <Pagination />
-    </PageLayout>
+    <>
+      <PageLayout>
+        <Head title="Магазин" />
+        <NavLayout>
+          <Link to="/">Главная</Link>
+          <BasketTool
+            onOpen={callbacks.openModalBasket}
+            amount={select.amount}
+            sum={select.sum}
+          />
+        </NavLayout>
+        <List list={select.list} renderItem={renders.item} />
+        <Pagination />
+      </PageLayout>
+      {select.activeModal === "basket" && <Basket />}
+    </>
   );
 }
 
