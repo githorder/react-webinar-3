@@ -8,6 +8,7 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../pagination";
 import NavLayout from "../../components/nav-layout";
+import Basket from "../basket";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
