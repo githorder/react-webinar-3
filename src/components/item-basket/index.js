@@ -4,7 +4,7 @@ import { cn as bem } from "@bem-react/classname";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-import { numberFormat } from "../../utils";
+import { numberFormat, handleTranslation } from "../../utils";
 import "./style.css";
 
 function ItemBasket(props) {
@@ -26,7 +26,9 @@ function ItemBasket(props) {
           {numberFormat(props.item.amount || 0)} шт
         </div>
         <div className={cn("cell")}>
-          <button onClick={callbacks.onRemove}>Удалить</button>
+          <button onClick={callbacks.onRemove}>
+            {handleTranslation("delete", props.langCode)}
+          </button>
         </div>
       </div>
     </div>
@@ -41,10 +43,12 @@ ItemBasket.propTypes = {
     amount: PropTypes.number,
   }).isRequired,
   onRemove: propTypes.func,
+  langCode: PropTypes.string,
 };
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  langCode: "en",
 };
 
 export default memo(ItemBasket);

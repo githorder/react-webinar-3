@@ -12,6 +12,8 @@ import Basket from "../basket";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 
+import { handleTranslation } from "../../utils";
+
 useSelector;
 
 function Product() {
@@ -23,6 +25,7 @@ function Product() {
     sum: state.basket.sum,
     product: state.catalog.itemInView,
     activeModal: state.modals.name,
+    langCode: state.locale.current,
   }));
 
   const callbacks = {
@@ -46,17 +49,19 @@ function Product() {
       <PageLayout>
         <Head title={select.product.title} />
         <NavLayout>
-          <Link to="/">Главная</Link>
+          <Link to="/">{handleTranslation("main", select.langCode)}</Link>
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}
+            langCode={select.langCode}
           />
         </NavLayout>
         <ProductDetails
           product={select.product}
           productID={params.id}
           addToBasket={callbacks.addToBasket}
+          langCode={select.langCode}
         />
       </PageLayout>
       {select.activeModal === "basket" && <Basket />}

@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 
 import "./style.css";
 
-function ProductDetails({ product, addToBasket, productID }) {
+import { handleTranslation } from "../../utils";
+
+function ProductDetails({ product, addToBasket, productID, langCode }) {
   const handleClick = () => addToBasket(productID);
 
   return (
@@ -27,7 +29,9 @@ function ProductDetails({ product, addToBasket, productID }) {
       <p className="ProductDetails_price">
         <strong>Цена: {product.price && `${product.price} ₽`}</strong>
       </p>
-      <button onClick={handleClick}>Добавить</button>
+      <button onClick={handleClick}>
+        {handleTranslation("add", langCode)}
+      </button>
     </div>
   );
 }
@@ -36,10 +40,12 @@ ProductDetails.propTypes = {
   product: PropTypes.shape({}).isRequired,
   productID: PropTypes.string.isRequired,
   addToBasket: PropTypes.func,
+  langCode: PropTypes.string,
 };
 
 ProductDetails.defaultProps = {
   addToBasket: () => {},
+  langCode: "en",
 };
 
 export default ProductDetails;

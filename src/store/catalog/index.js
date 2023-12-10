@@ -55,17 +55,20 @@ class Catalog extends StoreModule {
   }
 
   removeItemInView() {
-    this.setState({
-      ...this.getState(),
-      itemInView: {
-        title: "Название товара",
-        price: "",
-        description: "",
-        madeIn: { title: "", code: "" },
-        dateCreate: "",
-        category: { title: "" },
+    this.setState(
+      {
+        ...this.getState(),
+        itemInView: {
+          title: "Название товара",
+          price: "",
+          description: "",
+          madeIn: { title: "", code: "" },
+          dateCreate: "",
+          category: { title: "" },
+        },
       },
-    });
+      "Убрать товар из видимости"
+    );
   }
 }
 

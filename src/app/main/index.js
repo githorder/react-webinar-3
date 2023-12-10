@@ -8,10 +8,13 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../pagination";
 import NavLayout from "../../components/nav-layout";
+
 import Basket from "../basket";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+
+import { handleTranslation } from "../../utils";
 
 function Main() {
   const store = useStore();
@@ -24,6 +27,7 @@ function Main() {
     activeModal: state.modals.name,
     limit: state.pagination.limit,
     currentPage: state.pagination.currentPage,
+    langCode: state.locale.current,
   }));
 
   useEffect(() => {
@@ -49,22 +53,29 @@ function Main() {
   const renders = {
     item: useCallback(
       (item) => {
-        return <Item item={item} onAdd={callbacks.addToBasket} />;
+        return (
+          <Item
+            item={item}
+            langCode={select.langCode}
+            onAdd={callbacks.addToBasket}
+          />
+        );
       },
-      [callbacks.addToBasket]
+      [callbacks.addToBasket, select.langCode]
     ),
   };
 
   return (
     <>
       <PageLayout>
-        <Head title="Магазин" />
+        <Head title={handleTranslation("shop", select.langCode)} />
         <NavLayout>
-          <Link to="/">Главная</Link>
+          <Link to="/">{handleTranslation("main", select.langCode)}</Link>
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}
             sum={select.sum}
+            langCode={select.langCode}
           />
         </NavLayout>
         <List list={select.list} renderItem={renders.item} />

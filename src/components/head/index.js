@@ -1,13 +1,17 @@
-import {memo} from "react";
+import { memo } from "react";
 import PropTypes from "prop-types";
-import './style.css';
 
-function Head({title}) {
+import "./style.css";
+
+import Locale from "../../app/locale";
+
+function Head({ title }) {
   return (
-    <div className='Head'>
+    <div className="Head">
       <h1>{title}</h1>
+      <Locale />
     </div>
-  )
+  );
 }
 
 Head.propTypes = {
