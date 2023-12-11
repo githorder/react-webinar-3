@@ -22,6 +22,7 @@ function Main() {
   const store = useStore();
   const params = useParams();
   let page = Number(params.page);
+  let route = `/catalog`;
 
   const select = useSelector((state) => ({
     list: state.catalog.list,
@@ -95,6 +96,7 @@ function Main() {
           <>
             <List list={select.list} renderItem={renders.item} />
             <Pagination
+              route={route}
               totalItems={select.totalItems}
               pageSize={select.pageSize}
               loadProducts={callbacks.loadProducts}

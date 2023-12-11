@@ -7,7 +7,7 @@ import "./style.css";
 
 import { DOTS, getPaginationRange } from "../../utils";
 
-function Pagination({ currentPage, pageSize, totalItems, loadProducts }) {
+function Pagination({ currentPage, pageSize, totalItems, route }) {
   const pageRange = getPaginationRange({
     currentPage,
     pageSize,
@@ -27,7 +27,7 @@ function Pagination({ currentPage, pageSize, totalItems, loadProducts }) {
         return (
           <Link
             key={pageNumber}
-            to={`/catalog/${pageNumber}`}
+            to={`${route}/${pageNumber}`}
             // onClick={() =>
             //   loadProducts(pageSize, (pageNumber - 1) * pageSize, pageNumber)
             // }
