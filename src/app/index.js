@@ -5,7 +5,7 @@ import Product from "./product";
 
 const router = createBrowserRouter([
   { path: "/", element: <Main /> },
-  { path: "/product/:id", element: <Product /> },
+  { path: "/products/:id", element: <Product /> },
 ]);
 
 /**

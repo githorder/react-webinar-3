@@ -58,6 +58,7 @@ function Main() {
             item={item}
             langCode={select.langCode}
             onAdd={callbacks.addToBasket}
+            itemUrl={`/products/${item._id}`}
           />
         );
       },

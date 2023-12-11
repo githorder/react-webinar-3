@@ -38,6 +38,8 @@ function Basket() {
             item={item}
             onRemove={callbacks.removeFromBasket}
             langCode={select.langCode}
+            closeModal={callbacks.closeModal}
+            itemUrl={`/products/${item._id}`}
           />
         );
       },

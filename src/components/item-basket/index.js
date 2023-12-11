@@ -12,12 +12,17 @@ function ItemBasket(props) {
 
   const callbacks = {
     onRemove: (e) => props.onRemove(props.item._id),
+    onCloseModal: () => props.closeModal(),
   };
 
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link className={cn("title")} to={`/product/${props.item._id}`}>
+      <Link
+        onClick={callbacks.onCloseModal}
+        className={cn("title")}
+        to={props.itemUrl}
+      >
         {props.item.title}
       </Link>
       <div className={cn("right")}>
@@ -42,13 +47,17 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number,
   }).isRequired,
-  onRemove: propTypes.func,
+  onRemove: PropTypes.func,
+  closeModal: PropTypes.func,
   langCode: PropTypes.string,
+  itemUrl: PropTypes.string,
 };
 
 ItemBasket.defaultProps = {
   onRemove: () => {},
+  closeModal: () => {},
   langCode: "en",
+  itemUrl: "products/64845d45f4686f573a2287c6",
 };
 
 export default memo(ItemBasket);
