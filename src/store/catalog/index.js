@@ -10,11 +10,19 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
+      currentPage: 1,
+      pageSize: 10,
       totalItems: 0,
+      loading: false,
     };
   }
 
-  async load(limit, skip) {
+  async load(limit, skip, page) {
+    this.setState(
+      { ...this.getState(), currentPage: page, loading: true },
+      "Товары грузится в каталог"
+    );
+
     const response = await fetch(
       `/api/v1/articles?limit=${limit}&skip=${skip}&fields=items(_id, title, price),count`,
       { headers: { "Accept-Language": "ru" } }
@@ -25,8 +33,16 @@ class Catalog extends StoreModule {
         ...this.getState(),
         list: json.result.items,
         totalItems: json.result.count,
+        loading: false,
       },
       "Загружены товары из АПИ"
+    );
+  }
+
+  clearCatalog() {
+    this.setState(
+      { ...this.getState(), list: [], totalItems: 0 },
+      "Очистить каталог"
     );
   }
 }

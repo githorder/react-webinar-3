@@ -1,19 +1,20 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Main from "./main";
 import Product from "./product";
-
-const router = createBrowserRouter([
-  { path: "/", element: <Main /> },
-  { path: "/products/:id", element: <Product /> },
-]);
 
 /**
  * Приложение
  * @returns {React.ReactElement}
  */
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <Routes path="/">
+      <Route index element={<Main />} />
+      <Route path="/catalog/:page" element={<Main />} />
+      <Route path="/articles/:id" element={<Product />} />
+    </Routes>
+  );
 }
 
 export default App;

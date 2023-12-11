@@ -6,7 +6,7 @@ class Locale extends StoreModule {
   }
 
   initState() {
-    return { current: "en" };
+    return { current: "ru" };
   }
 
   changeLocale(langCode) {

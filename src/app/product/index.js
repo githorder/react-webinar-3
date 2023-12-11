@@ -7,15 +7,12 @@ import NavLayout from "../../components/nav-layout";
 import BasketTool from "../../components/basket-tool";
 import ProductDetails from "../../components/product-details";
 import Menu from "../../components/menu";
+import Spinner from "../../components/spinner";
 
 import Basket from "../basket";
 
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-
-import { handleTranslation } from "../../utils";
-
-useSelector;
 
 function Product() {
   const params = useParams();
@@ -69,7 +66,7 @@ function Product() {
         </PageLayout>
       ) : (
         <PageLayout>
-          <h1>Loading</h1>
+          <Spinner />
         </PageLayout>
       )}
 
