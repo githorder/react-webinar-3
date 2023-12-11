@@ -71,17 +71,27 @@ export function getPaginationRange({
   const rightSiblingPageIndex = Math.min(currentPage + siblingCount, pageCount);
 
   const shouldShowLeftDots = leftSiblingPageIndex > 2;
-  const shouldShowRightDots = rightSiblingPageIndex < pageCount - 2;
+  const shouldShowRightDots = rightSiblingPageIndex < pageCount - 1;
 
   if (!shouldShowLeftDots && shouldShowRightDots) {
-    const leftItemCount = 3 + siblingCount * 2;
-    const leftRange = range(firstPageIndex, leftItemCount);
+    const leftItemCount = 2 + siblingCount;
+    const leftRange = range(
+      firstPageIndex,
+      rightSiblingPageIndex === firstPageIndex + 3
+        ? rightSiblingPageIndex
+        : leftItemCount
+    );
     return [...leftRange, DOTS, lastPageIndex];
   }
 
   if (shouldShowLeftDots && !shouldShowRightDots) {
-    const rightItemCount = 3 + siblingCount * 2;
-    const rightRange = range(pageCount - rightItemCount + 1, pageCount);
+    const rightItemCount = 2 + siblingCount;
+    const rightRange = range(
+      leftSiblingPageIndex === pageCount - 3
+        ? leftSiblingPageIndex
+        : pageCount - rightItemCount + 1,
+      pageCount
+    );
     return [firstPageIndex, DOTS, ...rightRange];
   }
 
