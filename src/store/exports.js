@@ -3,3 +3,4 @@ export { default as catalog } from "./catalog";
 export { default as modals } from "./modals";
 export { default as pagination } from "./pagination";
 export { default as locale } from "./locale";
+export { default as product } from "./product";

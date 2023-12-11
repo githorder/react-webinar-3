@@ -1,5 +1,4 @@
 import { memo, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
@@ -8,6 +7,7 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import Pagination from "../pagination";
 import NavLayout from "../../components/nav-layout";
+import Menu from "../../components/menu";
 
 import Basket from "../basket";
 
@@ -70,7 +70,7 @@ function Main() {
       <PageLayout>
         <Head title={handleTranslation("shop", select.langCode)} />
         <NavLayout>
-          <Link to="/">{handleTranslation("main", select.langCode)}</Link>
+          <Menu langCode={select.langCode} />
           <BasketTool
             onOpen={callbacks.openModalBasket}
             amount={select.amount}

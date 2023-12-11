@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 
 import "./style.css";
 
-import { handleTranslation } from "../../utils";
+import { handleTranslation, numberFormat } from "../../utils";
 
 function ProductDetails({ product, addToBasket, productID, langCode }) {
   const handleClick = () => addToBasket(productID);
@@ -13,21 +13,17 @@ function ProductDetails({ product, addToBasket, productID, langCode }) {
       <p>
         Страна производитель:{" "}
         <strong>
-          {product.madeIn.title &&
-            `${product.madeIn.title} (${product.madeIn.code})`}
+          {product.madeIn.title} ({product.madeIn.code})
         </strong>
       </p>
       <p>
         Категория: <strong>{product.category.title}</strong>
       </p>
       <p>
-        Год выпуска:{" "}
-        <strong>
-          {new Date(product.dateCreate).getFullYear() || product.dateCreate}
-        </strong>
+        Год выпуска: <strong>{product.dateCreate}</strong>
       </p>
       <p className="ProductDetails_price">
-        <strong>Цена: {product.price && `${product.price} ₽`}</strong>
+        <strong>Цена: {numberFormat(product.price)} ₽</strong>
       </p>
       <button onClick={handleClick}>
         {handleTranslation("add", langCode)}

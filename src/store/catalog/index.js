@@ -11,14 +11,6 @@ class Catalog extends StoreModule {
     return {
       list: [],
       totalItems: 0,
-      itemInView: {
-        title: "Название товара",
-        price: "",
-        description: "",
-        madeIn: { title: "", code: "" },
-        dateCreate: "",
-        category: { title: "" },
-      },
     };
   }
 
@@ -35,39 +27,6 @@ class Catalog extends StoreModule {
         totalItems: json.result.count,
       },
       "Загружены товары из АПИ"
-    );
-  }
-
-  async loadOne(id) {
-    const response = await fetch(
-      `api/v1/articles/${id}?fields=title,description,madeIn(title,code),category(title),dateCreate,price`,
-      { headers: { "Accept-Language": "ru" } }
-    );
-
-    const json = await response.json();
-    this.setState(
-      {
-        ...this.getState(),
-        itemInView: json.result,
-      },
-      "Загружен один товар из АПИ"
-    );
-  }
-
-  removeItemInView() {
-    this.setState(
-      {
-        ...this.getState(),
-        itemInView: {
-          title: "Название товара",
-          price: "",
-          description: "",
-          madeIn: { title: "", code: "" },
-          dateCreate: "",
-          category: { title: "" },
-        },
-      },
-      "Убрать товар из видимости"
     );
   }
 }
