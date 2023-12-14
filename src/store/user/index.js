@@ -11,6 +11,7 @@ class User extends StoreModule {
       password: "",
       token: "",
       profile: null,
+      authError: null,
     };
   }
 
@@ -31,7 +32,10 @@ class User extends StoreModule {
   async authUser() {
     const response = await fetch("/api/v1/users/sign", {
       method: "post",
-      headers: { "Content-Type": "application/json", "Accept-Language": "ru" },
+      headers: {
+        "Content-Type": "application/json",
+        "Accept-Language": "ru",
+      },
       body: JSON.stringify({
         login: this.getState().username,
         password: this.getState().password,
@@ -40,18 +44,31 @@ class User extends StoreModule {
 
     const json = await response.json();
 
-    this.setState(
-      {
-        ...this.getState(),
-        username: "",
-        password: "",
-        profile: {
-          email: json.result.user.email,
-          ...json.result.user.profile,
+    if (json.error) {
+      this.setState(
+        {
+          ...this.getState(),
+          authError: json.error?.data?.issues[0].message,
+          username: "",
+          password: "",
         },
-      },
-      "Пользователь успешно авторизовался"
-    );
+        "Ошибка при авторизации пользователя"
+      );
+    } else {
+      this.setState(
+        {
+          ...this.getState(),
+          username: "",
+          password: "",
+          authError: null,
+          profile: {
+            email: json.result.user.email,
+            ...json.result.user.profile,
+          },
+        },
+        "Пользователь успешно авторизовался"
+      );
+    }
   }
 
   async signOut() {}

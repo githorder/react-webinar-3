@@ -13,6 +13,7 @@ function SignInForm() {
   const select = useSelector((state) => ({
     username: state.user.username,
     password: state.user.password,
+    authError: state.user.authError,
   }));
 
   const callbacks = {
@@ -46,6 +47,7 @@ function SignInForm() {
             changeValue={callbacks.changePassword}
           />
         </InputGroup>
+        <InputGroup type="error">{select.authError}</InputGroup>
         <input value="Войти" type="submit" />
       </form>
     </SignInFormLayout>
