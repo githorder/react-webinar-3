@@ -16,5 +16,7 @@
     "few": "товара",
     "many": "товаров",
     "other": "товара"
-  }
+  },
+  "login.title": "Логин",
+  "login.linkText": "Вход"
 }

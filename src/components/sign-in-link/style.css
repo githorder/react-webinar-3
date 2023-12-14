@@ -1,0 +1,21 @@
+.SignInLink {
+  text-decoration: none;
+  color: #000;
+  background-color: #efefef;
+  border: 1px solid #767676;
+  border-radius: 2px;
+  padding: 1px 6px;
+  cursor: default;
+  font-family: Arial;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.SignInLink:hover {
+  background-color: #dcdcdc;
+}
+
+.SignInLink:visited {
+  text-decoration: none;
+  color: #000;
+}
