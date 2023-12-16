@@ -10,8 +10,6 @@ import SignInForm from "../../containers/sign-in-form";
 import AuthControls from "../../containers/auth-controls";
 
 import useTranslate from "../../hooks/use-translate";
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 
 function Login() {
   const { t } = useTranslate();

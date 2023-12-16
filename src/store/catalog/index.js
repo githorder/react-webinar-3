@@ -25,6 +25,7 @@ function formatCategories(categories, validCategories) {
         id: category._id,
         title: category.title,
         nested: category.nested,
+        parent_id: category.parent?._id,
       });
       formatCategories(category.children, validCategories);
     } else {
@@ -32,6 +33,7 @@ function formatCategories(categories, validCategories) {
         id: category._id,
         title: category.title,
         nested: category.nested,
+        parent_id: category.parent?._id,
       });
     }
   }
@@ -175,7 +177,7 @@ class CatalogState extends StoreModule {
     const sorted = [];
     const categories = [];
 
-    hierarchicalSort(items, sorted, items[0].parent?._id);
+    hierarchicalSort(items, sorted, undefined);
     formatCategories(sorted, categories);
 
     this.setState(
