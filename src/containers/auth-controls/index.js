@@ -35,7 +35,7 @@ function AuthControls() {
 
   return (
     <AuthNavLayout>
-      {!select.profile ? (
+      {!select.name ? (
         <SignInLink labelText={t("login.linkText")} />
       ) : (
         <>

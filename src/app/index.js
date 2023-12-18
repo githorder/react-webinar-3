@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 
 import useSelector from "../hooks/use-selector";
 import useStore from "../hooks/use-store";
+import useInit from "../hooks/use-init";
 
 import Main from "./main";
 import Basket from "./basket";
@@ -21,16 +22,8 @@ function App() {
 
   const activeModal = useSelector((state) => state.modals.name);
 
-  useEffect(() => {
-    (async () => {
-      const session = await store.actions.session.load();
-
-      if (session !== null) {
-        store.actions.profile.setProfile(session);
-      } else {
-        store.actions.profile.deleteProfile();
-      }
-    })();
+  useInit(() => {
+    store.actions.session.load();
   }, []);
 
   return (
