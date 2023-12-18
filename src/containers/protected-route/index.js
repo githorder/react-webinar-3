@@ -1,5 +1,5 @@
 import { memo, useEffect } from "react";
-import { useNavigate, Outlet, Navigate } from "react-router-dom";
+import { useNavigate, Outlet, useLocation } from "react-router-dom";
 
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -13,6 +13,7 @@ import useTranslate from "../../hooks/use-translate";
 
 function ProtectedRoute() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { t } = useTranslate();
 
@@ -29,23 +30,21 @@ function ProtectedRoute() {
       if (session !== null) {
         store.actions.profile.setProfile(session);
       } else {
-        navigate("/login");
+        navigate(`/login?redirectTo=${location.pathname}`);
       }
     })();
   }, []);
 
-  if (select.profile && !select.waiting) {
-    return (
-      <PageLayout>
-        <AuthControls />
-        <Head title={t("title")}>
-          <LocaleSelect />
-        </Head>
-        <Navigation />
-        <Outlet />
-      </PageLayout>
-    );
-  }
+  return (
+    <PageLayout>
+      <AuthControls />
+      <Head title={t("title")}>
+        <LocaleSelect />
+      </Head>
+      <Navigation />
+      {select.profile && !select.waiting ? <Outlet /> : null}
+    </PageLayout>
+  );
 }
 
 export default memo(ProtectedRoute);

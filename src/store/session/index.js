@@ -8,6 +8,7 @@ class Session extends StoreModule {
   initState() {
     return {
       token: "",
+      name: "",
       waiting: false,
     };
   }
@@ -27,7 +28,12 @@ class Session extends StoreModule {
       const json = await response.json();
 
       this.setState(
-        { ...this.getState(), token, waiting: false },
+        {
+          ...this.getState(),
+          token,
+          waiting: false,
+          name: json.result.profile.name,
+        },
         "Сессия загрузилась"
       );
 
@@ -48,7 +54,7 @@ class Session extends StoreModule {
   delete() {
     localStorage.removeItem("token");
     this.setState(
-      { ...this.getState(), token: "" },
+      { ...this.getState(), token: "", name: "" },
       "Пользователь удален из сессии"
     );
   }

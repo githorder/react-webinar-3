@@ -18,6 +18,7 @@ function AuthControls() {
   const select = useSelector((state) => ({
     profile: state.profile.profile,
     token: state.session.token,
+    name: state.session.name,
   }));
 
   const callbacks = {
@@ -38,7 +39,7 @@ function AuthControls() {
         <SignInLink labelText={t("login.linkText")} />
       ) : (
         <>
-          <Link to="/profile">{select.profile.name}</Link>
+          <Link to="/profile">{select.name}</Link>
           <button onClick={callbacks.signOut}>Выход</button>
         </>
       )}
