@@ -43,10 +43,10 @@ class Session extends StoreModule {
     return null;
   }
 
-  save(token) {
-    localStorage.setItem("token", token);
+  save(data) {
+    localStorage.setItem("token", data.token);
     this.setState(
-      { ...this.getState(), token },
+      { ...this.getState(), token: data.token, name: data.user.profile.name },
       "Пользователь сохранен в сессии"
     );
   }

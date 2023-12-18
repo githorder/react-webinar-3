@@ -34,7 +34,7 @@ function SignInForm() {
         setAuthError(res.error?.data?.issues[0].message);
       } else {
         store.actions.profile.setProfile(res.result.user);
-        store.actions.session.save(res.result.token);
+        store.actions.session.save(res.result);
         navigate(to);
       }
     },
