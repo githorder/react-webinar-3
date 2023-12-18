@@ -1,5 +1,5 @@
 import { useCallback, memo } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
@@ -9,7 +9,11 @@ import AuthNavLayout from "../../components/auth-nav-layout";
 import SignInLink from "../../components/sign-in-link";
 
 function AuthControls() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const { t } = useTranslate();
+
   const store = useStore();
   const select = useSelector((state) => ({
     profile: state.profile.profile,
@@ -21,6 +25,10 @@ function AuthControls() {
       store.actions.profile.deleteProfile();
       store.actions.auth.signOut(select.token);
       store.actions.session.delete();
+
+      if (location.pathname === "/profile") {
+        navigate("/login");
+      }
     }, [store]),
   };
 

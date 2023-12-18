@@ -8,18 +8,29 @@ class Session extends StoreModule {
   initState() {
     return {
       token: "",
+      waiting: false,
     };
   }
 
   async load() {
     const token = localStorage.getItem("token");
-    this.setState({ ...this.getState(), token }, "Токен получен");
 
     if (token) {
+      this.setState(
+        { ...this.getState(), token, waiting: true },
+        "Загружается сессия"
+      );
+
       const response = await fetch("/api/v1/users/self?fields=*", {
         headers: { "Content-Type": "application/json", "X-Token": token },
       });
       const json = await response.json();
+
+      this.setState(
+        { ...this.getState(), token, waiting: false },
+        "Сессия загрузилась"
+      );
+
       return json.result;
     }
 
