@@ -28,7 +28,7 @@ function AuthControls() {
       store.actions.session.delete();
 
       if (location.pathname === "/profile") {
-        navigate("/login");
+        navigate(`/login?redirectTo=${location.pathname}`);
       }
     }, [store]),
   };
