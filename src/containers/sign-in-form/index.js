@@ -1,27 +1,42 @@
-import { memo } from "react";
+import { memo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
 
 import InputGroup from "../../components/input-group";
 import SignInInput from "../../components/sign-in-input";
 import SignInFormLayout from "../../components/sign-in-form-layout";
+import { useLocation } from "react-router-dom";
 
 function SignInForm() {
+  const navigate = useNavigate();
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState(null);
+
+  const location = useLocation();
+  const to =
+    location.search.length === 0
+      ? "/"
+      : location.search.split("?")[1].split("=")[1];
+
   const store = useStore();
 
-  const select = useSelector((state) => ({
-    username: state.user.username,
-    password: state.user.password,
-    authError: state.user.authError,
-  }));
-
   const callbacks = {
-    changeUsername: (e) => store.actions.user.setUsername(e.target.value),
-    changePassword: (e) => store.actions.user.setPassword(e.target.value),
-    authUser: (e) => {
+    changeUsername: (e) => setUsername(e.target.value),
+    changePassword: (e) => setPassword(e.target.value),
+    authUser: async (e) => {
       e.preventDefault();
-      store.actions.user.authUser();
+      const res = await store.actions.auth.authUser(username, password);
+
+      if (res.error) {
+        setAuthError(res.error?.data?.issues[0].message);
+      } else {
+        store.actions.profile.setProfile(res.result.user);
+        store.actions.session.save(res.result.token);
+        navigate(to);
+      }
     },
   };
 
@@ -32,7 +47,7 @@ function SignInForm() {
         <InputGroup>
           <SignInInput
             id="login"
-            value={select.username}
+            value={username}
             label="Логин"
             changeValue={callbacks.changeUsername}
             type="text"
@@ -43,11 +58,11 @@ function SignInForm() {
             type="password"
             label="Пароль"
             id="password"
-            value={select.password}
+            value={password}
             changeValue={callbacks.changePassword}
           />
         </InputGroup>
-        <InputGroup type="error">{select.authError}</InputGroup>
+        {authError && <InputGroup type="error">{authError}</InputGroup>}
         <input value="Войти" type="submit" />
       </form>
     </SignInFormLayout>

@@ -6,6 +6,13 @@
   flex-direction: column;
 }
 
+.Input_group input {
+  font-size: 16px;
+  padding: 2px;
+}
+
 .Input_group_type_error {
   color: #ff0000;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

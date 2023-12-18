@@ -12,7 +12,7 @@ function SelectCategory(props) {
       <option value="">Все</option>
       {props.options.map((item) => (
         <option key={item.id} value={item.id}>
-          {`${"-".repeat(item.nested)} ${item.title}`}
+          {`${"- ".repeat(item.nested)}${item.title}`}
         </option>
       ))}
     </select>

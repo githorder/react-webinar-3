@@ -16,16 +16,14 @@ import useSelector from "../../hooks/use-selector";
 
 function Profile() {
   const { t } = useTranslate();
-  const store = useStore();
+
   const select = useSelector((state) => ({
-    profile: state.user.profile,
+    profile: state.profile.profile,
   }));
 
   return (
     <PageLayout>
-      <SideLayout padding="medium" side="end">
-        <AuthControls />
-      </SideLayout>
+      <AuthControls />
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

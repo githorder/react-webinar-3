@@ -12,24 +12,29 @@ function AuthControls() {
   const { t } = useTranslate();
   const store = useStore();
   const select = useSelector((state) => ({
-    profile: state.user.profile,
+    profile: state.profile.profile,
+    token: state.session.token,
   }));
 
   const callbacks = {
-    signOut: useCallback(() => store.actions.user.signOut(), [store]),
+    signOut: useCallback(() => {
+      store.actions.profile.deleteProfile();
+      store.actions.auth.signOut(select.token);
+      store.actions.session.delete();
+    }, [store]),
   };
 
   return (
-    <>
+    <AuthNavLayout>
       {!select.profile ? (
         <SignInLink labelText={t("login.linkText")} />
       ) : (
-        <AuthNavLayout>
+        <>
           <Link to="/profile">{select.profile.name}</Link>
           <button onClick={callbacks.signOut}>Выход</button>
-        </AuthNavLayout>
+        </>
       )}
-    </>
+    </AuthNavLayout>
   );
 }
 

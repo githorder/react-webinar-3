@@ -45,9 +45,7 @@ function Article() {
 
   return (
     <PageLayout>
-      <SideLayout padding="medium" side="end">
-        <AuthControls />
-      </SideLayout>
+      <AuthControls />
       <Head title={select.article.title}>
         <LocaleSelect />
       </Head>

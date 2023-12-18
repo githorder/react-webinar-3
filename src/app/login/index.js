@@ -16,9 +16,7 @@ function Login() {
 
   return (
     <PageLayout>
-      <SideLayout padding="medium" side="end">
-        <AuthControls />
-      </SideLayout>
+      <AuthControls />
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>

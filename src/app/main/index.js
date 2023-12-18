@@ -22,6 +22,7 @@ function Main() {
 
   useInit(
     () => {
+      store.actions.category.setCategories();
       store.actions.catalog.initParams();
     },
     [],
@@ -32,9 +33,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <SideLayout padding="medium" side="end">
-        <AuthControls />
-      </SideLayout>
+      <AuthControls />
       <Head title={t("title")}>
         <LocaleSelect />
       </Head>
