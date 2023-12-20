@@ -9,19 +9,20 @@ import useInit from "../../hooks/use-init";
 
 import CommentHead from "../../components/comment-head";
 import Spinner from "../../components/spinner";
+import CommentList from "../../components/comment-list";
 
 function Comment({ articleId }) {
   const dispatch = useDispatch();
 
   const select = useSelector(
     (state) => ({
-      comments: state.comment.data,
+      comment: state.comment.data,
       waiting: state.comment.waiting,
     }),
     shallowequal
   );
 
-  console.log(select.comments);
+  console.log(select.comment.list);
 
   useInit(() => {
     dispatch(commentActions.load(articleId));
@@ -29,9 +30,8 @@ function Comment({ articleId }) {
 
   return (
     <Spinner active={select.waiting}>
-      <div>
-        <CommentHead count={select.comments.count} />
-      </div>
+      <CommentHead count={select.comment.count} />
+      <CommentList list={select.comment.list} />
     </Spinner>
   );
 }
