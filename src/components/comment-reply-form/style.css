@@ -1,0 +1,66 @@
+.CommentReplyForm {
+  padding: 40px;
+  padding-top: 0px;
+  padding-bottom: 92px;
+}
+
+.CommentReplyForm-nested {
+  margin-top: 30px;
+  padding-left: 30px;
+  padding-bottom: 30px;
+}
+
+.CommentReplyForm-close {
+  background: transparent;
+  font-size: 16px;
+  font-weight: 400;
+  color: #666;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.CommentReplyForm p {
+  padding: 0px;
+  margin: 0px;
+}
+
+.CommentReplyForm-form_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.CommentReplyForm-form_container p {
+  font-size: 12px;
+  font-weight: 700;
+  padding: 0px;
+  margin: 0px;
+}
+
+.CommentReplyForm-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.CommentReplyForm-form textarea {
+  height: 76px;
+  width: 100%;
+  font-family: Arial;
+  resize: none;
+  padding: 5px;
+}
+
+.CommentReplyForm-btn_group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.CommentReplyForm-form button {
+  width: fit-content;
+}

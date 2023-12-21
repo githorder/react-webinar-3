@@ -1,0 +1,32 @@
+.CommentItem-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+}
+
+.CommentItem-name {
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.CommentItem-date {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666;
+}
+
+.CommentItem-text {
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.CommentItem-reply {
+  border: none;
+  background-color: transparent;
+  color: #0087e9;
+  font-size: 12px;
+  font-weight: 400;
+  cursor: pointer;
+  padding: 0px;
+}

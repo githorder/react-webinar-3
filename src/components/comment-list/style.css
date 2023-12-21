@@ -1,42 +1,11 @@
 .CommentList {
   padding: 0px 40px;
-  padding-bottom: 92px;
   display: flex;
   flex-direction: column;
   gap: 30px;
+  margin-bottom: 30px;
+  padding-bottom: 0px;
 }
 
-.Comment {
-}
-
-.Comment-info {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  width: 100%;
-}
-
-.Comment-name {
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.Comment-date {
-  font-size: 12px;
-  font-weight: 400;
-  color: #666;
-}
-
-.Comment-text {
-  font-size: 14px;
-  font-weight: 400;
-}
-
-.Comment-reply {
-  border: none;
-  background-color: transparent;
-  color: #0087e9;
-  font-size: 12px;
-  font-weight: 400;
-  cursor: pointer;
+.Comment-item {
 }

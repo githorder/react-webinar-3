@@ -22,6 +22,7 @@ export default {
               _id: item?._id,
               text: item?.text,
               level,
+              parentId: item?.parent?._id,
             };
           }
         ).slice(1);
@@ -33,6 +34,33 @@ export default {
         });
       } catch (e) {
         dispatch({ type: "comments/load-error" });
+      }
+    };
+  },
+
+  create({ id, text, type, token, articleId }) {
+    return async (dispatch, getState, services) => {
+      dispatch({ type: "comments/create-start" });
+
+      try {
+        await services.api.request({
+          url: "/api/v1/comments",
+          method: "POST",
+          headers: { "X-Token": token },
+          body: JSON.stringify({
+            text,
+            parent: { _id: id, _type: type },
+          }),
+        });
+
+        dispatch({
+          type: "comments/create-success",
+        });
+        dispatch(this.load(articleId));
+      } catch (e) {
+        dispatch({
+          type: "comments/create-error",
+        });
       }
     };
   },
