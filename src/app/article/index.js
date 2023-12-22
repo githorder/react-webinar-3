@@ -37,7 +37,7 @@ function Article() {
     shallowequal
   ); // Нужно указать функцию для сравнения свойства объекта, так как хуком вернули объект
 
-  const { t } = useTranslate();
+  const i18n = useTranslate();
 
   const callbacks = {
     // Добавление в корзину
@@ -58,7 +58,7 @@ function Article() {
         <ArticleCard
           article={select.article}
           onAdd={callbacks.addToBasket}
-          t={t}
+          i18n={i18n}
         />
         <Comment articleId={params.id} />
       </Spinner>

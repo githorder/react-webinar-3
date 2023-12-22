@@ -78,6 +78,7 @@ function Comment({ articleId }) {
     },
     closeReplyForm: (e) => {
       e.preventDefault();
+      setCommentId(null);
       setIsReply(false);
     },
   };
