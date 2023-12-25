@@ -13,9 +13,10 @@ function CommentReplyForm({
   text,
   closeReplyForm,
   onSignIn,
+  lastChild,
 }) {
   return (
-    <div className={`${cn()} ${cn("nested")}`}>
+    <div className={`${cn()} ${lastChild ? cn("nested-diff") : cn("nested")}`}>
       {!isAuthorized ? (
         <p>
           <a href="" onClick={onSignIn}>

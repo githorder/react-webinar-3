@@ -23,6 +23,7 @@ function Comment({ articleId }) {
   const [commentText, setCommentText] = useState("");
   const [isReply, setIsReply] = useState(false);
   const [commentId, setCommentId] = useState(null);
+  const [lastChild, setLastChild] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -77,9 +78,10 @@ function Comment({ articleId }) {
         setCommentText("");
       }
     },
-    showReplyForm: (id) => {
+    showReplyForm: ({ commentId, child }) => {
       setIsReply(true);
-      setCommentId(id);
+      setCommentId(commentId);
+      setLastChild(child);
     },
     closeReplyForm: (e) => {
       e.preventDefault();
@@ -108,8 +110,10 @@ function Comment({ articleId }) {
           isReply={isReply}
           commentId={commentId}
           authName={select.authName}
+          lastChild={lastChild}
         >
           <CommentReplyForm
+            lastChild={lastChild}
             text={commentText}
             changeText={callbacks.changeText}
             isAuthorized={select.exists}

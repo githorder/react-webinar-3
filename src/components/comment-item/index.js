@@ -5,11 +5,21 @@ import "./style.css";
 
 const cn = bem("CommentItem");
 
+function findLastChild(comment) {
+  const lastChild = comment?.children[comment?.children.length - 1];
+  if (lastChild) {
+    return findLastChild(lastChild);
+  } else {
+    return comment;
+  }
+}
+
 function CommentItem({
   comment,
   showReplyForm,
   isReply,
   commentId,
+  lastChild,
   authName,
   children,
 }) {
@@ -34,12 +44,19 @@ function CommentItem({
       </div>
       <p className={cn("text")}>{comment.text}</p>
       <button
-        onClick={() => showReplyForm(comment._id)}
+        onClick={() =>
+          showReplyForm({
+            commentId: comment._id,
+            child: findLastChild(comment),
+          })
+        }
         className={cn("reply")}
       >
         Ответить
       </button>
-      {isReply && comment._id === commentId ? children : null}
+      {isReply && comment._id === (lastChild?._id || commentId)
+        ? children
+        : null}
     </>
   );
 }

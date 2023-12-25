@@ -16,6 +16,7 @@ function transformCommentList(list) {
       text: item?.text,
       level,
       parentId: item?.parent?._id,
+      children: item?.children,
     };
   }).reduce((arr, item) => {
     if (item.dateCreate) {
@@ -35,7 +36,7 @@ function CommentList({ list, renderItem }) {
     <>
       {Array.isArray(list) && list.length !== 0 && (
         <div className="CommentList">
-          {transformCommentList(list).map((comment, i, arr) => {
+          {transformCommentList(list).map((comment, i) => {
             return (
               <div
                 style={{
