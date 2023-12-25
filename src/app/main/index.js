@@ -9,9 +9,11 @@ import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
 import TopHead from "../../containers/top-head";
+import useServices from "../../hooks/use-services";
 
 function Main() {
   const store = useStore();
+  const services = useServices();
 
   useInit(
     async () => {
@@ -20,7 +22,7 @@ function Main() {
         store.actions.categories.load(),
       ]);
     },
-    [],
+    [services.i18n.lang],
     true
   );
 
