@@ -1,4 +1,5 @@
 import { memo, useCallback, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import shallowequal from "shallowequal";
 import PropTypes from "prop-types";
@@ -16,6 +17,9 @@ import CommentReplyForm from "../../components/comment-reply-form";
 import CommentItem from "../../components/comment-item";
 
 function Comment({ articleId }) {
+  const location = useLocation();
+  const navigate = useNavigate();
+
   const [commentText, setCommentText] = useState("");
   const [isReply, setIsReply] = useState(false);
   const [commentId, setCommentId] = useState(null);
@@ -25,6 +29,7 @@ function Comment({ articleId }) {
   const select = useSelector((state) => ({
     exists: state.session.exists,
     token: state.session.token,
+    authName: state.session.user.profile?.name,
   }));
 
   const selectRedux = useSelectorRedux(
@@ -42,14 +47,14 @@ function Comment({ articleId }) {
     submitComment: (e) => {
       e.preventDefault();
 
-      if (commentText.length) {
+      if (commentText.trim().length) {
         dispatch(
           commentActions.create({
             id: articleId,
             text: commentText,
             type: "article",
             token: select.token,
-            articleId,
+            user: select.authName,
           })
         );
         setCommentText("");
@@ -58,14 +63,14 @@ function Comment({ articleId }) {
     replyComment: (e) => {
       e.preventDefault();
 
-      if (commentText.length) {
+      if (commentText.trim().length) {
         dispatch(
           commentActions.create({
             id: commentId,
             text: commentText,
             type: "comment",
             token: select.token,
-            articleId,
+            user: select.authName,
           })
         );
         setIsReply(false);
@@ -81,6 +86,13 @@ function Comment({ articleId }) {
       setCommentId(null);
       setIsReply(false);
     },
+    onSignIn: useCallback(
+      (e) => {
+        e.preventDefault();
+        navigate("/login", { state: { back: location.pathname } });
+      },
+      [location.pathname]
+    ),
   };
 
   useInit(() => {
@@ -95,6 +107,7 @@ function Comment({ articleId }) {
           comment={comment}
           isReply={isReply}
           commentId={commentId}
+          authName={select.authName}
         >
           <CommentReplyForm
             text={commentText}
@@ -102,6 +115,7 @@ function Comment({ articleId }) {
             isAuthorized={select.exists}
             closeReplyForm={callbacks.closeReplyForm}
             replyComment={callbacks.replyComment}
+            onSignIn={callbacks.onSignIn}
           />
         </CommentItem>
       );
@@ -121,6 +135,7 @@ function Comment({ articleId }) {
         changeText={callbacks.changeText}
         submitComment={callbacks.submitComment}
         isAuthorized={select.exists}
+        onSignIn={callbacks.onSignIn}
       />
     </Spinner>
   );

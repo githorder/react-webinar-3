@@ -15,6 +15,7 @@ export const ServicesProvider = function ({ children }) {
   const [lang, setLang] = useState(services.i18n.lang);
 
   services.i18n.subscribe(lang, setLang);
+  services.api.setHeader("Accept-Language", lang);
 
   return (
     <ServicesContext.Provider value={services}>

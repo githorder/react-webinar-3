@@ -1,5 +1,4 @@
 import { cn as bem } from "@bem-react/classname";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import "./style.css";
@@ -12,13 +11,16 @@ function CommentSubmitForm({
   submitComment,
   text,
   isReply,
+  onSignIn,
 }) {
   return (
     <div className={cn()}>
       {!isAuthorized && !isReply ? (
         <p>
-          <Link to={"/login"}>Войдите</Link>, чтобы иметь возможность
-          комментировать.
+          <a href="" onClick={onSignIn}>
+            Войдите
+          </a>
+          , чтобы иметь возможность комментировать.
         </p>
       ) : isAuthorized && !isReply ? (
         <div className={cn("form_container")}>
@@ -41,11 +43,13 @@ CommentSubmitForm.propTypes = {
   submitComment: PropTypes.func,
   text: PropTypes.string,
   isReply: PropTypes.bool,
+  onSignIn: PropTypes.func,
 };
 
 CommentSubmitForm.defaultProps = {
   changeText: () => {},
   submitComment: () => {},
+  onSignIn: () => {},
 };
 
 export default CommentSubmitForm;

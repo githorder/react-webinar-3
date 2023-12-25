@@ -8,4 +8,6 @@
 }
 
 .Comment-item {
+  width: 550px;
+  word-wrap: break-word;
 }

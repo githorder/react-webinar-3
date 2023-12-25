@@ -12,13 +12,16 @@ function CommentReplyForm({
   replyComment,
   text,
   closeReplyForm,
+  onSignIn,
 }) {
   return (
     <div className={`${cn()} ${cn("nested")}`}>
       {!isAuthorized ? (
         <p>
-          <Link to={"/login"}>Войдите</Link>, чтобы иметь возможность
-          комментировать.
+          <a href="" onClick={onSignIn}>
+            Войдите
+          </a>
+          , чтобы иметь возможность комментировать.
           <button className={cn("close")} onClick={closeReplyForm}>
             Отмена
           </button>
@@ -47,12 +50,14 @@ CommentReplyForm.propTypes = {
   replyComment: PropTypes.func,
   closeReplyForm: PropTypes.func,
   text: PropTypes.string,
+  goToLogin: PropTypes.func,
 };
 
 CommentReplyForm.defaultProps = {
   changeText: () => {},
   replyComment: () => {},
   closeReplyForm: () => {},
+  goToLogin: () => {},
 };
 
 export default CommentReplyForm;

@@ -12,25 +12,12 @@ export default {
           url: `/api/v1/comments?fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type),isDeleted),count&limit=*&search[parent]=${id}`,
         });
 
-        const list = treeToList(
-          listToTree(res.data.result.items),
-          (item, level) => {
-            return {
-              name: item?.author?.profile?.name,
-              dateCreate: item?.dateCreate,
-              isDeleted: item?.isDeleted,
-              _id: item?._id,
-              text: item?.text,
-              level,
-              parentId: item?.parent?._id,
-            };
-          }
-        ).slice(1);
-        const count = res.data.result.count;
-
         dispatch({
           type: "comments/load-success",
-          payload: { count, list },
+          payload: {
+            count: res.data.result.count,
+            list: res.data.result.items,
+          },
         });
       } catch (e) {
         dispatch({ type: "comments/load-error" });
@@ -38,12 +25,12 @@ export default {
     };
   },
 
-  create({ id, text, type, token, articleId }) {
+  create({ id, text, type, token, user }) {
     return async (dispatch, getState, services) => {
       dispatch({ type: "comments/create-start" });
 
       try {
-        await services.api.request({
+        const comment = await services.api.request({
           url: "/api/v1/comments",
           method: "POST",
           headers: { "X-Token": token },
@@ -55,8 +42,8 @@ export default {
 
         dispatch({
           type: "comments/create-success",
+          payload: { comment: comment.data.result, user },
         });
-        dispatch(this.load(articleId));
       } catch (e) {
         dispatch({
           type: "comments/create-error",

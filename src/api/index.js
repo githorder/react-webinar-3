@@ -25,7 +25,6 @@ class APIService {
       method,
       headers: {
         ...this.defaultHeaders,
-        "Accept-Language": this.services.i18n.lang,
         ...headers,
       },
       ...options,

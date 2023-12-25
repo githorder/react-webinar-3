@@ -6,6 +6,8 @@ import Item from "../../components/item";
 import List from "../../components/list";
 import Pagination from "../../components/pagination";
 import Spinner from "../../components/spinner";
+import useInit from "../../hooks/use-init";
+import useServices from "../../hooks/use-services";
 
 function CatalogList() {
   const store = useStore();

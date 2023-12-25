@@ -5,16 +5,31 @@ import "./style.css";
 
 const cn = bem("CommentItem");
 
-function CommentItem({ comment, showReplyForm, isReply, commentId, children }) {
-  const date = new Intl.DateTimeFormat("ru-RU", {
-    dateStyle: "long",
-    timeStyle: "short",
-  }).format(new Date(comment.dateCreate));
+function CommentItem({
+  comment,
+  showReplyForm,
+  isReply,
+  commentId,
+  authName,
+  children,
+}) {
+  const date = comment?.dateCreate
+    ? new Intl.DateTimeFormat("ru-RU", {
+        dateStyle: "long",
+        timeStyle: "short",
+      }).format(new Date(comment?.dateCreate))
+    : "";
 
   return (
     <>
       <div className={cn("info")}>
-        <span className={cn("name")}>{comment.name}</span>
+        <span
+          className={`${cn("name")} ${
+            authName === comment.name ? cn("name_active") : ""
+          }`}
+        >
+          {comment.name}
+        </span>
         <span className={cn("date")}>{date}</span>
       </div>
       <p className={cn("text")}>{comment.text}</p>
@@ -39,6 +54,7 @@ CommentItem.propTypes = {
   commentId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   isReply: PropTypes.bool,
   showReplyForm: PropTypes.func,
+  authName: PropTypes.string,
 };
 
 CommentItem.defaultProps = {

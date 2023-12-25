@@ -10,6 +10,10 @@
   font-weight: 700;
 }
 
+.CommentItem-name_active {
+  color: #666;
+}
+
 .CommentItem-date {
   font-size: 12px;
   font-weight: 400;

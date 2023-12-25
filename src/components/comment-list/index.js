@@ -2,15 +2,17 @@ import PropTypes from "prop-types";
 
 import "./style.css";
 
-function CommentList({ list, renderItem, isReply, commentId, children }) {
+function CommentList({ list, renderItem }) {
   return (
     <>
       {Array.isArray(list) && list.length !== 0 && (
         <div className="CommentList">
-          {list.map((comment) => {
+          {list.map((comment, i, arr) => {
             return (
               <div
-                style={{ paddingLeft: (comment.level - 1) * 30 }}
+                style={{
+                  paddingLeft: comment.level * 30,
+                }}
                 key={comment._id}
                 className="Comment-item"
               >
